@@ -1,0 +1,16 @@
+.page-holder {
+    min-height: 100vh;
+  }
+  
+.bg-cover {
+    background-size: cover !important;
+  }
+
+#bpllc {
+    color:rgb(255, 186, 8);
+}
+
+/* 
+#fadenav {
+    opacity: .5;
+} */
