@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="bpllcstyles.css">
 
     <title>BPLLC BK</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 
 <body>
@@ -43,6 +44,44 @@
                 </div>
             </div>
         </nav>
+
+ <input type="file" id="file-input">
+    <button id="fetch-button">Fetch and Display Excel</button>
+    <div id="excel-data"></div>
+
+    <script>
+        // Handle file input change event
+        document.getElementById('file-input').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+
+                    // Assuming the data is in the first sheet
+                    const sheetName = workbook.SheetNames[0];
+                    const worksheet = workbook.Sheets[sheetName];
+
+                    // Convert worksheet to JSON
+                    const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                    console.log(jsonData);
+
+                    // You can further process the JSON data or display it as needed
+                };
+
+                reader.readAsArrayBuffer(file);
+            }
+        });
+
+        // Handle button click event to trigger file input
+        document.getElementById('fetch-button').addEventListener('click', function() {
+            document.getElementById('file-input').click();
+        });
+    </script>
+
+        
  <!--        <div class="container-fluid">
             <div class="row mt-5">
 
