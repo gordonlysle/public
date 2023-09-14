@@ -45,12 +45,17 @@
             </div>
         </nav>
 
- <div id="excel-data"></div>
+  <div id="excel-preview">
+        <h1>Excel Document Preview</h1>
+        <table id="excel-table" border="1">
+            <!-- Table headers will be dynamically generated here -->
+        </table>
+    </div>
 
     <script>
         // Automatically fetch Excel from a specific address when the page loads
         document.addEventListener('DOMContentLoaded', function() {
-            const excelFilePath = 'excelCal.xlsx'; // Replace with the actual URL or path
+            const excelFilePath = '/path/to/excel-file.xlsx'; // Replace with the actual URL or path
 
             // Fetch the Excel file
             fetch(excelFilePath)
@@ -66,20 +71,38 @@
 
                     // Convert worksheet to JSON
                     const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-                    console.log(jsonData);
 
-                    // You can further process the JSON data or display it as needed
+                    // Create an HTML table to display the data
+                    const table = document.getElementById('excel-table');
+                    const headers = jsonData[0];
 
-                    // Display the data on the page (example: create an HTML table)
-                    const table = document.createElement('table');
-                    // ... Populate the table with data ...
-                    document.getElementById('excel-data').appendChild(table);
+                    // Create table headers from the first row of jsonData
+                    const headerRow = table.insertRow(0);
+                    for (const header of headers) {
+                        const th = document.createElement('th');
+                        th.textContent = header;
+                        headerRow.appendChild(th);
+                    }
+
+                    // Populate the table with data rows
+                    for (let i = 1; i < jsonData.length; i++) {
+                        const dataRow = table.insertRow(i);
+                        for (let j = 0; j < headers.length; j++) {
+                            const cellData = jsonData[i][j];
+                            const cell = dataRow.insertCell(j);
+                            cell.textContent = cellData;
+                        }
+                    }
+
+                    // Display the data on the page
+                    document.getElementById('excel-preview').style.display = 'block';
                 })
                 .catch(error => {
                     console.error('Fetch Error:', error);
                 });
         });
     </script>
+</body>
 
         
  <!--        <div class="container-fluid">
