@@ -47,84 +47,76 @@
 
 
         
-            <h1>Upload an excel file to display in HTML Table</h1>
-<!-- Input element to upload an excel file -->
-<<button id="loadDataButton">Load Excel File</button>
-<div id="dataContainer"></div>
+<h1>Import an Excel file from GitHub and display in HTML Table</h1>
+    <!-- Input element to enter GitHub Raw URL -->
+    <input type="text" id="githubRawUrl" placeholder="Enter GitHub Raw URL">
+    <button onclick="importFromGitHub()">Import from GitHub</button>  
+    <br>
+    <br>
+    <!-- table to display the Excel data -->
+    <table id="display_excel_data" border="1"></table>
 
-<!-- table to display the excel data -->
-<table id="display_excel_data"></table>
+        
+    <script>
+      // Method to initiate Excel import from GitHub URL
+      
+        var githubRawUrl = "https://github.com/gordonlysle/public/raw/main/musician.xlsx";
+        
 
-
-
-<script>document.getElementById("loadDataButton").addEventListener("click", function () {
-    // GitHub Raw URL for your Excel file
-    var githubRawUrl = "https://github.com/gordonlysle/public/raw/main/musician.xlsx";
-
-    // Fetch the Excel file
-    fetch(githubRawUrl)
-        .then((response) => response.blob())
-        .then((blob) => {
-            // Read the blob as text
-            var reader = new FileReader();
-            reader.onload = function () {
-                var excelData = reader.result;
-                var dataContainer = document.getElementById("dataContainer");
-
-                // Display the Excel file's content
-                dataContainer.innerHTML = `<pre>${excelData}</pre>`;
-            };
-            reader.readAsText(blob);
-        })
-        .catch((error) => {
+        // Fetch the Excel file from GitHub Raw URL
+        fetch(githubRawUrl)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.blob();
+          })
+          .then(blob => {
+            // Convert the Excel file to JSON
+            excelFileToJSON(blob);
+          })
+          .catch(error => {
             console.error("Error fetching the Excel file:", error);
-        });
-});
+          });
+      }
 
-  //Method to read excel file and convert it into JSON 
-function excelFileToJSON(file){
-          try {
-            var reader = new FileReader();
-            reader.readAsBinaryString(file);
-            reader.onload = function(e) {
- 
-                var data = e.target.result;
-                var workbook = XLSX.read(data, {
-                    type : 'binary'
-                });
-                var result = {};
-                var firstSheetName = workbook.SheetNames[0];
-                //reading only first sheet data
-                var jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
-                alert(JSON.stringify(jsonData));
-                //displaying the json result into HTML table
-                displayJsonToHtmlTable(jsonData);
-                }
-            }catch(e){
-                console.error(e);
-            }
-}
-}
-
-//Method to display the data in HTML Table
-function displayJsonToHtmlTable(jsonData){
-        var table=document.getElementById("display_excel_data");
-        if(jsonData.length>0){
-            var htmlData='<tr><th>MUSICIAN</th><th>DAYS</th><th>LOCATION</th><th>PAID</th></tr>';
-            for(var i=0;i<jsonData.length;i++){
-                var row=jsonData[i];
-                htmlData+='<tr><td>'+row["MUSICIAN"]+'</td><td>'+row["DAYS"]
-                      +'</td><td>'+row["LOCATION"]+'</td><td>'+row["PAID"]+'</td></tr>';
-            }
-            table.innerHTML=htmlData;
-        }else{
-            table.innerHTML='There is no data in Excel';
+      // Method to convert Excel file blob to JSON
+      function excelFileToJSON(blob) {
+        try {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            var data = e.target.result;
+            var workbook = XLSX.read(data, {
+              type: 'binary'
+            });
+            var firstSheetName = workbook.SheetNames[0];
+            // Read only the first sheet data
+            var jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
+            // Display the JSON result in an HTML table
+            displayJsonToHtmlTable(jsonData);
+          };
+          reader.readAsBinaryString(blob);
+        } catch (e) {
+          console.error(e);
         }
-}
+      }
 
+      // Method to display JSON data in an HTML table
+      function displayJsonToHtmlTable(jsonData) {
+        var table = document.getElementById("display_excel_data");
+        if (jsonData.length > 0) {
+          var htmlData = '<tr><th>Student Name</th><th>Address</th><th>Email ID</th><th>Age</th></tr>';
+          for (var i = 0; i < jsonData.length; i++) {
+            var row = jsonData[i];
+            htmlData += '<tr><td>' + row["Student Name"] + '</td><td>' + row["Address"] + '</td><td>' + row["Email ID"] + '</td><td>' + row["Age"] + '</td></tr>';
+          }
+          table.innerHTML = htmlData;
+        } else {
+          table.innerHTML = 'There is no data in the Excel file.';
+        }
+      }
+    </script>
 
-
-</script>
 
 
 
