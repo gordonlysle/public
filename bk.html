@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="bpllcstyles.css">
 
     <title>BPLLC BK</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.min.js"></script>
 </head>
 
 <body>
@@ -47,48 +47,78 @@
 
 
         
-              <iframe src="https://onedrive.live.com/embed?resid=3EA1CBBD57FC5D%21806&authkey=!ACqWQkGHAdWovz8&em=2" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
+            <h1>Upload an excel file to display in HTML Table</h1>
+<!-- Input element to upload an excel file -->
+<input type="file" id="file_upload" />
+<button onclick="upload()">Upload</button>  
+<br><br>
+<!-- table to display the excel data -->
+<table id="display_excel_data"></table>
 
 
-        <h1>Excel to JSON Conversion</h1>
 
-        <!-- Button to trigger fetch and conversion -->
-        <button onclick="fetchAndDisplayExcel()">Fetch and Display Excel</button>
-    
-        <!-- Display the converted JSON data -->
-        <div id="json-data"></div>
-    
-        <script>
-            // Function to fetch and display Excel data as JSON
-            function fetchAndDisplayExcel() {
-                const excelFileUrl = 'https://1drv.ms/x/s!Al38V73LoT4AhiYH3aeKAvahnnnq?e=V2TSqw'; // Replace with your OneDrive file URL
-    
-                // Fetch the Excel file
-                fetch(excelFileUrl)
-                    .then(response => response.arrayBuffer())
-                    .then(arrayBuffer => {
-                        const XLSX = require('xlsx');
-                        const data = new Uint8Array(arrayBuffer);
-                        const workbook = XLSX.read(data, { type: 'array' });
-    
-                        // Assuming the data is in the first sheet
-                        const sheetName = workbook.SheetNames[0];
-                        const worksheet = workbook.Sheets[sheetName];
-    
-                        // Convert worksheet to JSON
-                        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-    
-                        // Display the JSON data on the page
-                        const jsonDataContainer = document.getElementById('json-data');
-                        jsonDataContainer.textContent = JSON.stringify(jsonData, null, 2);
-    
-                        // You can further process or interact with the JSON data as needed
-                    })
-                    .catch(error => {
-                        console.error('Fetch Error:', error);
-                    });
+<script>// Method to upload a valid excel file
+function upload() {
+  var files = document.getElementById('file_upload').files;
+  if(files.length==0){
+    alert("Please choose any file...");
+    return;
+  }
+  var filename = files[0].name;
+  var extension = filename.substring(filename.lastIndexOf(".")).toUpperCase();
+  if (extension == '.XLS' || extension == '.XLSX') {
+      //Here calling another method to read excel file into json
+      excelFileToJSON(files[0]);
+  }else{
+      alert("Please select a valid excel file.");
+  }
+
+  //Method to read excel file and convert it into JSON 
+function excelFileToJSON(file){
+          try {
+            var reader = new FileReader();
+            reader.readAsBinaryString(file);
+            reader.onload = function(e) {
+ 
+                var data = e.target.result;
+                var workbook = XLSX.read(data, {
+                    type : 'binary'
+                });
+                var result = {};
+                var firstSheetName = workbook.SheetNames[0];
+                //reading only first sheet data
+                var jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
+                alert(JSON.stringify(jsonData));
+                //displaying the json result into HTML table
+                displayJsonToHtmlTable(jsonData);
+                }
+            }catch(e){
+                console.error(e);
             }
-        </script>
+}
+}
+
+//Method to display the data in HTML Table
+function displayJsonToHtmlTable(jsonData){
+        var table=document.getElementById("display_excel_data");
+        if(jsonData.length>0){
+            var htmlData='<tr><th>MUSICIAN</th><th>DAYS</th><th>LOCATION</th><th>PAID</th></tr>';
+            for(var i=0;i<jsonData.length;i++){
+                var row=jsonData[i];
+                htmlData+='<tr><td>'+row["MUSICIAN"]+'</td><td>'+row["DAYS"]
+                      +'</td><td>'+row["LOCATION"]+'</td><td>'+row["PAID"]+'</td></tr>';
+            }
+            table.innerHTML=htmlData;
+        }else{
+            table.innerHTML='There is no data in Excel';
+        }
+}
+
+
+
+</script>
+
+
 
 
         <!-- Option 1: Bootstrap Bundle with Popper -->
