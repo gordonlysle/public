@@ -1,0 +1,191 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="bpllcstyles.css">
+
+    <title>ROLL FOR SONG</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.min.js"></script>
+    <style>
+      body {
+color: white;
+}
+    /* CSS for button styling */
+    .big-button {
+      display: inline-block;
+      padding: 20px 40px;
+      font-size: 24px;
+      background-color: #007bff; /* Adjust color as needed */
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .big-button:hover {
+      background-color: #0056b3; /* Adjust hover color as needed */
+    }
+
+    /* CSS for styling */
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    ol {
+      margin-bottom: 20px;
+    }
+
+    li {
+      margin-bottom: 5px;
+    }
+   </style>
+</head>
+
+<body>
+
+    <div style="background: url(scarletBG_1400.JPG)" class="page-holder bg-cover">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:rgb(0, 0, 0, .5)">
+            <div class="container">
+                <a class=" navbar-brand" href="index.html" id="bpllc">"PlayGuide for ROLL FOR SONG"</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <!--<li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="bpllcabout.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="bpllcensembles.html">Ensembles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="bpllcvideos.html">Videos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="bpllcpress.html">Press</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="bpllccontact.html">Contact</a>
+                        </li>-->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+       
+<!-- Button linking to the Mid-Song Modifiers & Why page -->
+<a href="RFS_why.html" class="big-button">What is ROLL FOR SONG?</a>
+<a href="RFS_msm.html" class="big-button">To Mid-Song Modifiers</a>
+
+        <div class="container">
+            <h1>How to Play Roll for Song</h1>
+            <ol>
+              <li>
+                <h2>Roll for Song</h2>
+                <ol type="A">
+                  <li>Roll the Opal 1D8 to choose the SONG we play:
+                    <ol>
+                      <li>When the Saints</li>
+                      <li>All of Me</li>
+                      <li>Coquette</li>
+                      <li>Summertime</li>
+                      <li>L-O-V-E</li>
+                      <li>St. Thomas</li>
+                      <li>My Little Suede Shoes</li>
+                      <li>Bésame Mucho</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <h2>Roll for Style</h2>
+                <ol type="A">
+                  <li>Roll the Opal 1D4 to choose the STYLE of the SONG:
+                    <ol>
+                      <li>2 Beat</li>
+                      <li>Latin</li>
+                      <li>Funky</li>
+                      <li>Jazz</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <h2>Roll for Key — Use the “Roll For Key” Slider Sleeve</h2>
+                <ol>
+                  <li>Flip the SIG COIN to choose the Key Signature:
+                    <ol>
+                      <li>Sharps (the hash tag)</li>
+                      <li>Flats (the lower case b)</li>
+                    </ol>
+                  </li>
+                  <li>Roll 1 of the 3 white dice to choose how many Accidentals:
+                    <ol>
+                      <li>Easy Keys - 1D4 - 74% of all music</li>
+                      <li>Hard Keys - 1D6 - 25% of all music</li>
+                      <li>Stupid Keys - 1D8 - less than 1% of all music</li>
+                    </ol>
+                  </li>
+                  <li>Match Key Signature to Accidentals to determine key:
+                    <ul>
+                      <li>Easy Keys:
+                        <ul>
+                          <li>-. b   / #</li>
+                          <li>0. C / C</li>
+                          <li>1. F / G</li>
+                          <li>2. Bb / D</li>
+                          <li>3. Eb / A</li>
+                        </ul>
+                      </li>
+                      <li>Hard Keys:
+                        <ul>
+                          <li>4. Ab / E</li>
+                          <li>5. Db / B</li>
+                        </ul>
+                      </li>
+                      <li>Stupid Keys:
+                        <ul>
+                          <li>6. Gb / F#</li>
+                          <li>7. Cb / C#</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </div>
+
+        
+
+
+    
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+    
