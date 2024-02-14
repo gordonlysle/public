@@ -119,17 +119,17 @@
           <!-- Button linking to the Songlist page -->
 <div class="container"><a href="bba_songlist.html" class="big-button">Back To SONG LIST</a></div>
 
-
-        <div class="container">
-			<form method="post" action="https://script.google.com/macros/s/AKfycbwtCesQnYIU6lZJT6pCZ6i7nav_nYQbSxIywq53JJDYa0XC_Rq8Syte8lCU589t-eo0/exec" name="contact-form">
-			<input type="text" name="song-number" placeholder="Song Number">
-            <input type="text" name="song-title" placeholder="Song Title">
-			<input type="date" name="day-played" placeholder="Day Played">
-		<!--	<input type="email" name="your-email" placeholder="Email"> -->
-			<textarea name="notes" rows="2" placeholder="Notes"></textarea> 
-			<input type="submit" value="Submit" id="submit">
-		</form>
-	</div>
+<div class="container">
+    <form method="post" action="https://script.google.com/macros/s/AKfycbwtCesQnYIU6lZJT6pCZ6i7nav_nYQbSxIywq53JJDYa0XC_Rq8Syte8lCU589t-eo0/exec" name="contact-form">
+    <input type="text" name="song-number" placeholder="Song Number">
+    <input type="text" name="song-title" placeholder="Song Title">
+    <input type="date" name="day-played" placeholder="Day Played">
+<!--	<input type="email" name="your-email" placeholder="Email"> -->
+    <textarea name="notes" rows="2" placeholder="Notes"></textarea> 
+    <input type="submit" value="Submit" id="submit">
+</form>
+</div>
+       
 
 
  
@@ -139,7 +139,7 @@
 <script>
 
 
-const scriptURL = 'https://script.google.com/macros/s/AKfycbzmJ04VWcSKPbISeE4AciOUShSRug-8jpSXiMrOZwpTI-qboCPxJabP8lX1BEimHY03/exec'
+const scriptURL = 'https://script.google.com/macros/s/AKfycbwtCesQnYIU6lZJT6pCZ6i7nav_nYQbSxIywq53JJDYa0XC_Rq8Syte8lCU589t-eo0/exec'
 const form = document.forms['contact-form']
 
 form.addEventListener('submit', e => {
@@ -150,12 +150,31 @@ form.addEventListener('submit', e => {
   .catch(error => console.error('Error!', error.message))
 })
 
+gapi.client.sheets.spreadsheets.batchUpdate({
+        spreadsheetId: params.spreadsheetId,
+        resource: {
+          requests: [
+            {
+              sortRange: {
+                range: {
+                  sheetId: 0, // Main sheet
+                  startRowIndex: 1, // Start sorting from the second row (assuming the first row is headers)
+                },
+                sortSpecs: params.sortSpecs
+              }
+            }
+          ]
+        }
+      }).then(function(response) {
+        console.log('Sheet sorted:', response.result);
+      }, function(error) {
+        console.error('Error sorting sheet:', error.result.error.message);
+      });
+    
 </script>
     
         <!-- Option 1: Bootstrap Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
             crossorigin="anonymous"></script>
-
-
-        </body>
+</body>
