@@ -15,83 +15,63 @@
 </head>
   
   <style>
- /* Style the input box */
- input[type="text"] {
-      width: 500px;
-      height: 60px;
-      font-size: 24px;
+  /* Style the main container */
+  .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    /* Style the container for the chat box */
+    .chat-container {
+      flex-grow: 1;
+      border: 1px solid #ccc;
+      overflow-y: auto;
       padding: 10px;
-    }
-    
-    /* Style the submit button */
-    input[type="submit"] {
-      width: 150px;
-      height: 60px;
-      font-size: 24px;
-      cursor: pointer;
-    }
-    
-    /* Style the container for the message display */
-    #messageContainer {
-      margin-top: 20px;
+      margin-left: 20px;
     }
 
     /* Style the message display */
     #messageDisplay {
-      font-size: 24px;
-      margin-top: 10px;
-        color: white;
+        color:white;
+      font-size: calc(2vmin + 12px); /* Adjust font size dynamically based on available room */
     }
+
+    /* Style the input box */
+    input[type="text"] {
+      width: 300px;
+      height: 40px;
+      font-size: 18px;
+      padding: 5px;
+    }
+    /* Style the Clear Chat button */
+    #clearChatBtn {
+      width: 150px;
+      height: 40px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    /* Style the submit button */
+    input[type="submit"] {
+      width: 100px;
+      height: 40px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    /* Style the container for the Google Sheets iframe */
+    .iframe-container {
+      width: 60%; /* Adjust the width as needed */
+    }
+
 body {
   font-family: Arial, sans-serif;
   color: rgb(0, 0, 0)
 }
 
-/* CSS for button styling */
-.big-button {
-      display: inline-block;
-      padding: 20px 40px;
-      font-size: 24px;
-      background-color: #007bff; /* Adjust color as needed */
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      transition: background-color 0.3s ease;
-    }
 
-    .big-button:hover {
-      background-color: #0056b3; /* Adjust hover color as needed */
-    }
 
-.iframe-container {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-iframe {
-  width: 800px;
-  height: 100%;
-  border: none;
-  transform-origin: top left;
-}
- 
-
-textarea {
-  width: 300px;
-  height: 150px;
-  padding: 5px;
-  margin-bottom: 10px;
-}
-
-button {
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-#displayText {
-  margin-top: 10px;
-}
 
    </style>
 
@@ -134,47 +114,67 @@ button {
 
 
 
-   <!-- Text input box -->
-  <input type="text" id="messageInput" placeholder="Enter your message" autocomplete="off">
-  <!-- Submit button -->
-  <input type="submit" value="Submit" onclick="saveMessage()">
-  
-  <!-- Container for the message display -->
-  <div id="messageContainer">
-    <h2>NEXT UP ideas:</h2>
-    <div id="messageDisplay"></div>
-  </div>
-
-  <script>
-    // Function to save message to local storage
-    function saveMessage() {
-      // Get the message from the input box
-      var message = document.getElementById('messageInput').value;
-      
-      // Check if the message is not empty
-      if (message.trim() !== '') {
-        // Save the message to local storage
-        localStorage.setItem('nextUpMessage', message);
-        
-        // Display the message in the message display box
-        document.getElementById('messageDisplay').textContent = message;
-        
-        // Clear the input box after saving the message
-        document.getElementById('messageInput').value = '';
-      }
+            <div class="container">
+                <!-- Container for the Google Sheets iframe -->
+                <div class="iframe-container">
+                  <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS1nohX2dEjMyc88zZcSiLaQFus6ksAJ7bqI1d3_5d6ztVsLaIrKvahk5WjrMVuPlXVFf3IpwvQt9zb/pubhtml?gid=774587757&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="600"></iframe>
+                </div>
+            
+                <!-- Container for the chat box -->
+                <div class="chat-container">
+                  <h2>NEXT UP ideas:</h2>
+                  <div id="messageDisplay"></div>
+                  <!-- Text input box -->
+                  <input type="text" id="messageInput" placeholder="What song should we play next?" autocomplete="off">
+                  <!-- Submit button -->
+                  <input type="submit" value="Submit" onclick="saveMessage()">
+                  <!-- Clear Chat button -->
+                <input type="button" id="clearChatBtn" value="Clear Chat" onclick="clearChat()">
+                </div>
+              </div>
+            
+              <script>
+                // Function to save message to local storage
+                function saveMessage() {
+                  // Get the message from the input box
+                  var message = document.getElementById('messageInput').value;
+                  
+                  // Check if the message is not empty
+                  if (message.trim() !== '') {
+                    // Save the message to local storage
+                    localStorage.setItem('nextUpMessage', message);
+                    
+                    // Display the message in the chat box
+                    var messageDisplay = document.getElementById('messageDisplay');
+                    messageDisplay.innerHTML += '<div style="margin-bottom: 10px;">' + message + '</div>';
+                    
+                    // Clear the input box after saving the message
+                    document.getElementById('messageInput').value = '';
+                    
+                    // Scroll to the bottom of the chat box
+                    messageDisplay.scrollTop = messageDisplay.scrollHeight;
+                  }
+                }
+                     // Function to clear the chat box
+                   function clearChat() {
+                     document.getElementById('messageDisplay').innerHTML = '';
+                    localStorage.removeItem('nextUpMessage');
     }
-    
-    // Function to load message from local storage on page load
-    window.onload = function() {
-      // Check if there's a message stored in local storage
-      var storedMessage = localStorage.getItem('nextUpMessage');
-      
-      // Display the stored message in the message display box
-      if (storedMessage) {
-        document.getElementById('messageDisplay').textContent = storedMessage;
-      }
-    };
-  </script>
+                // Function to load message from local storage on page load
+                window.onload = function() {
+                  // Check if there's a message stored in local storage
+                  var storedMessage = localStorage.getItem('nextUpMessage');
+                  
+                  // Display the stored message in the chat box
+                  if (storedMessage) {
+                    var messageDisplay = document.getElementById('messageDisplay');
+                    messageDisplay.innerHTML += '<div style="margin-bottom: 10px;">' + storedMessage + '</div>';
+                    messageDisplay.scrollTop = messageDisplay.scrollHeight;
+                  }
+                };
+              </script>
+
+
         
         <!-- Option 1: Bootstrap Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
