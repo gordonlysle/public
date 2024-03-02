@@ -150,26 +150,7 @@ form.addEventListener('submit', e => {
   .catch(error => console.error('Error!', error.message))
 })
 
-gapi.client.sheets.spreadsheets.batchUpdate({
-        spreadsheetId: params.spreadsheetId,
-        resource: {
-          requests: [
-            {
-              sortRange: {
-                range: {
-                  sheetId: 0, // Main sheet
-                  startRowIndex: 1, // Start sorting from the second row (assuming the first row is headers)
-                },
-                sortSpecs: params.sortSpecs
-              }
-            }
-          ]
-        }
-      }).then(function(response) {
-        console.log('Sheet sorted:', response.result);
-      }, function(error) {
-        console.error('Error sorting sheet:', error.result.error.message);
-      });
+
     
 </script>
     
