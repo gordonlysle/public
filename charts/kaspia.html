@@ -22,14 +22,28 @@ body {
 }
 
 .container {
+    position: relative; /* Set position to relative to allow absolute positioning of pseudo-element */
     max-width: 100%;
     overflow: hidden; /* Hide horizontal overflow */
-    background-image: url('kaspia_bk.png'); /* Set the background image */
+    background-image: url('caviarKaspia_bk.png'); /* Set the background image */
     background-size: cover; /* Cover the entire container with the background image */
     background-position: center; /* Center the background image */
     padding: 20px; /* Add padding for spacing */
+}
+
+.container::before {
+    content: ''; /* Required for pseudo-elements */
+    position: absolute; /* Set position to absolute */
+    top: 0; /* Position at the top of the container */
+    left: 0; /* Position at the left of the container */
+    width: 100%; /* Cover the entire container horizontally */
+    height: 100%; /* Cover the entire container vertically */
+    background-color: rgba(255, 255, 255, 0.5); /* Set a translucent white overlay */
+}
 
 .letter-container {
+    position: relative; /* Set position to relative to allow z-index to work */
+    z-index: 1; /* Ensure the letter container appears above the overlay */
     display: flex;
     flex-wrap: wrap; /* Allow flex items to wrap */
     justify-content: space-between; /* Distribute items evenly along the main axis */
