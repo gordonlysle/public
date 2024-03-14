@@ -8,7 +8,7 @@
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="bpllcstyles.css">
 
-    <title>CHARTS</title>
+    <title>TOUCH-CHARTS</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.min.js"></script>
    
 
@@ -21,6 +21,42 @@ body {
   color: rgb(0, 0, 0)
 }
 
+.container {
+    max-width: 100%;
+    overflow: hidden; /* Hide horizontal overflow */
+}
+
+.letter-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow flex items to wrap */
+}
+
+.letter-column {
+    flex: 0 0 calc(100% / 4); /* Adjust width as needed */
+    margin-bottom: 20px;
+}
+
+.letter-column h2 {
+    margin-top: 0;
+}
+
+.letter-column ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.letter-column ul li {
+    margin-bottom: 5px;
+}
+
+.letter-column ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.letter-column ul li a:hover {
+    text-decoration: underline;
+}
 
 
    </style>
@@ -34,7 +70,7 @@ body {
     <div style="background: url(scarletBG_1400.JPG)" class="page-holder bg-cover">
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:rgb(0, 0, 0, .5)">
             <div class="container">
-                <a class=" navbar-brand" href="charts.html" id="bpllc">CHARTS</a>
+                <a class=" navbar-brand" href="charts.html" id="bpllc">The CHIP SMITH PAGE OF TOUCH-CHARTS</a>
                 <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -64,32 +100,34 @@ body {
     </div>
    
     <div class="container">
-        <div class="row">
-            <div class="col-sm-3">
+        <div class="letter-container">
+            <div class="letter-column">
+                <h2>00</h2>
+                <ul>
+                    <li><a href="500 Miles High.webp">500 Miles High</a></li>
+                    <!-- Songs starting with '00' -->
+                </ul>
+            </div>
+            <div class="letter-column">
                 <h2>A</h2>
                 <ul>
-                    <li><a href="500%20Miles%20High.webp">500 Miles High</a></li>
-                    <!-- Add other songs starting with 'A' -->
+                    <li><a href="Autumn Leaves.webp">Autumn Leaves</a></li>
+                    <!-- Songs starting with 'A' -->
                 </ul>
             </div>
-            <div class="col-sm-3">
+            <div class="letter-column">
                 <h2>B</h2>
                 <ul>
-                    <li><a href="Bernie's%20Tune.webp">Bernie's Tune</a></li>
-                    <!-- Add other songs starting with 'B' -->
+                    <li><a href="Bernie's Tune.webp">Bernie's Tune</a></li>
+                    <li><a href="Besame Mucho.webp">Besame Mucho</a></li>
+                    <li><a href="Blue Bossa.webp">Blue Bossa</a></li>
+                    <!-- Songs starting with 'B' -->
                 </ul>
             </div>
-            <div class="col-sm-3">
-                <h2>C</h2>
-                <ul>
-                    <li><a href="Caravan.webp">Caravan</a></li>
-                    <!-- Add other songs starting with 'C' -->
-                </ul>
-            </div>
-            <!-- Add more columns for other letters as needed -->
         </div>
-        <!-- Add more rows for additional letters as needed -->
-    </div>
+     </div>
+
+     
 
 
     <!--  <textarea id="textAreaInput" placeholder="Enter text"></textarea>
@@ -111,3 +149,4 @@ body {
 
 
     
+
