@@ -29,11 +29,14 @@ body {
 .letter-container {
     display: flex;
     flex-wrap: wrap; /* Allow flex items to wrap */
+    justify-content: space-between; /* Distribute items evenly along the main axis */
 }
 
 .letter-column {
-    flex: 0 0 calc(100% / 4); /* Adjust width as needed */
+    flex-grow: 1; /* Allow the columns to grow and shrink based on content */
+    flex-basis: calc((100% - 60px) / 4); /* Calculate the initial width of each column */
     margin-bottom: 20px;
+    max-width: calc((100% - 60px) / 4); /* Limit the maximum width of each column */
 }
 
 .letter-column h2 {
@@ -124,6 +127,40 @@ body {
                     <!-- Songs starting with 'B' -->
                 </ul>
             </div>
+            <div class="letter-column">
+                <h2>C</h2>
+                <ul>
+                    <li><a href="Caravan.webp">Caravan</a></li>
+<li><a href="Cherokee.webp">Cherokee</a></li>
+<li><a href="Cold Duck Time.webp">Cold Duck Time</a></li>
+                    <!-- Songs starting with 'C' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>D</h2>
+                <ul>
+                    <li><a href="Desafinado.webp">Desafinado</a></li>
+                    <!-- Songs starting with 'D' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>E</h2>
+                <ul>
+                    
+                    <!-- Songs starting with 'E' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>F</h2>
+                <ul>
+                    <li><a href="Favela.webp">Favela</a></li>
+<li><a href="Flamingo.webp">Flamingo</a></li>
+<li><a href="Fly Me To The Moon.webp">Fly Me To The Moon</a></li>
+<li><a href="Footprints.webp">Footprints</a></li>
+<li><a href="Frenesi.webp">Frenesi</a></li>
+                    <!-- Songs starting with 'F' -->
+                </ul>
+            </div>
         </div>
      </div>
 
@@ -149,4 +186,3 @@ body {
 
 
     
-
