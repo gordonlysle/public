@@ -330,15 +330,29 @@ body {
     </div>
 
     <script>
-    function checkPassword() {
-        var passwordInput = document.getElementById("passwordInput").value;
-        if (passwordInput === "2514251") {
-            document.getElementById("overlay").style.display = "none"; // Hide overlay
-            document.querySelector(".content").classList.add("show"); // Show content
-        } else {
-            alert("You sure about that?");
-        }
+   window.onload = function() {
+    // Check if the user has already entered the password
+    var hasEnteredPassword = localStorage.getItem("hasEnteredPassword");
+
+    if (hasEnteredPassword === "true") {
+        // If the password has already been entered, hide the overlay and show the content
+        document.getElementById("overlay").style.display = "none";
+        document.querySelector(".content").classList.add("show");
     }
+};
+
+function checkPassword() {
+    var passwordInput = document.getElementById("passwordInput").value;
+    if (passwordInput === "2514251") {
+        // Store a flag in the local storage indicating that the password has been entered
+        localStorage.setItem("hasEnteredPassword", "true");
+        
+        document.getElementById("overlay").style.display = "none"; // Hide overlay
+        document.querySelector(".content").classList.add("show"); // Show content
+    } else {
+        alert("Incorrect password. Please try again.");
+    }
+}
 
 </script>
 
