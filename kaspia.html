@@ -1,0 +1,389 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="bpllcstyles.css">
+
+    <title>RCHARTZ KASPIA</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.min.js"></script>
+   
+
+</head>
+  
+  <style>
+
+body {
+  font-family: Arial, sans-serif;
+  color: rgb(0, 0, 0)
+}
+
+.container {
+    position: relative; /* Set position to relative to allow absolute positioning of pseudo-element */
+    max-width: 100%;
+    overflow: hidden; /* Hide horizontal overflow */
+    background-image: url('caviarKaspia_bk.png'); /* Set the background image */
+    background-size: cover; /* Cover the entire container with the background image */
+    background-position: center; /* Center the background image */
+    padding: 20px; /* Add padding for spacing */
+}
+
+.container::before {
+    content: ''; /* Required for pseudo-elements */
+    position: absolute; /* Set position to absolute */
+    top: 0; /* Position at the top of the container */
+    left: 0; /* Position at the left of the container */
+    width: 100%; /* Cover the entire container horizontally */
+    height: 100%; /* Cover the entire container vertically */
+    background-color: rgba(255, 255, 255, 0.5); /* Set a translucent white overlay */
+}
+
+.letter-container {
+    position: relative; /* Set position to relative to allow z-index to work */
+    z-index: 1; /* Ensure the letter container appears above the overlay */
+    display: flex;
+    flex-wrap: wrap; /* Allow flex items to wrap */
+    justify-content: space-between; /* Distribute items evenly along the main axis */
+}
+
+.letter-column {
+    flex-grow: 1; /* Allow the letter containers to grow and shrink based on available space */
+    margin-bottom: 20px;
+    max-width: calc((100% - 40px) / 2); /* Limit the maximum width of each letter container */
+}
+
+.letter-column h2 {
+    margin-top: 0;
+    border-bottom: 2px solid #333; /* Add a border at the bottom of each letter */
+    padding-bottom: 5px; /* Add some padding to create space between the border and the text */
+    font-family: 'Roboto', sans-serif; /* Set the font family to Roboto */
+    color: #333; /* Set the font color */
+}
+
+.letter-column ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.letter-column ul li {
+    margin-bottom: 5px;
+}
+
+.letter-column ul li a {
+    text-decoration: none;
+    font-family: 'Tahoma', sans-serif; /* Set the font family to Roboto */
+    font-weight: bold; /* Add bold to the font */
+    color: #000000; /* Set the font color */
+    display: inline-block; /* Make the <a> element a block-level element */
+    padding: 1px 7px 1px 7px; /* Add padding around the text */
+    background-color: rgba(242, 242, 242, 0.3); /* Set the background color with 70% opacity */
+    border-radius: 5px; /* Add rounded corners */
+}
+
+.letter-column ul li a:hover {
+    text-decoration: underline;
+    color: #555; /* Set the font color on hover */
+}
+
+   </style>
+
+
+
+
+
+<body>
+
+    <div style="background: url(scarletBG_1400.JPG)" class="page-holder bg-cover">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:rgb(0, 0, 0, .5)">
+            <div class="container">
+                <a class="navbar-brand" href="index.html" style="color: black; font-weight: bold; position: relative; z-index: 3;" id="kaspia">KASPIA -- RCHARTZ HOME</a>
+                <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0"> -->
+                        <!--<li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="bpllcabout.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="bpllcensembles.html">Ensembles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="bpllcvideos.html">Videos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="bpllcpress.html">Press</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="bpllccontact.html">Contact</a>
+                        </li>
+                    </ul>
+                </div>-->
+                </div>
+            </nav>  
+    </div>
+   
+    <div class="container">
+        <div class="letter-container">
+            <div class="letter-column">
+                <h2>00</h2>
+                <ul>
+                    <li><a href="500 Miles High.webp">500 Miles High</a></li>
+                    <!-- Songs starting with '00' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>A</h2>
+                <ul>
+                    <li><a href="Autumn Leaves.webp">Autumn Leaves</a></li>
+                    <!-- Songs starting with 'A' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>B</h2>
+                <ul>
+                    <li><a href="Bernie's Tune.webp">Bernie's Tune</a></li>
+                    <li><a href="Besame Mucho.webp">Besame Mucho</a></li>
+                    <li><a href="Blue Bossa.webp">Blue Bossa</a></li>
+                    <li><a href="Bluesette.webp">Bluesette</a></li>
+                    <li><a href="Body And Soul.webp">Body And Soul</a></li>
+                    <!-- Songs starting with 'B' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>C</h2>
+                <ul>
+                    <li><a href="Caravan.webp">Caravan</a></li>
+                    <li><a href="Chega De Saudade.webp">Chega De Saudade</a></li>
+                    <li><a href="Chega De Saudade chords.webp">Chega De Saudade chords</a></li>
+                    <li><a href="Cherokee.webp">Cherokee</a></li>
+                    <li><a href="Cold Duck Time.webp">Cold Duck Time</a></li>
+                    <!-- Songs starting with 'C' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>D</h2>
+                <ul>
+                    <li><a href="Desafinado.webp">Desafinado</a></li>
+                    <li><a href="Desafinado chords.webp">Desafinado chords</a></li>
+                    <li><a href="Djangology.webp">Djangology</a></li>
+                    <!-- Songs starting with 'D' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>E</h2>
+                <ul>
+                    <li><a href="East Of The Sun.webp">East Of The Sun</a></li>
+                    <!-- Songs starting with 'E' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>F</h2>
+                <ul>
+                    <li><a href="Favela.webp">Favela</a></li>
+                    <li><a href="Flamingo.webp">Flamingo</a></li>
+                    <li><a href="Fly Me To The Moon.webp">Fly Me To The Moon</a></li>
+                    <li><a href="Footprints.webp">Footprints</a></li>
+                    <li><a href="Frenesi.webp">Frenesi</a></li>
+                    <!-- Songs starting with 'F' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>G</h2>
+                <ul>
+                    <li><a href="Gee Baby, Ain't I Good To You.webp">Gee Baby, Ain't I Good To You</a></li>
+                    <li><a href="Gentle Rain.webp">Gentle Rain</a></li>
+                    <li><a href="Ginza Samba.webp">Ginza Samba</a></li>
+                    <!-- Songs starting with 'G' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>H</h2>
+                <ul>
+                    
+                    <!-- Songs starting with 'H' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>I</h2>
+                <ul>
+                    <li><a href="In A Mellow Tone.webp">In A Mellow Tone</a></li>
+                    <li><a href="Indian Summer.webp">Indian Summer</a></li>
+                    <li><a href="Indiana.webp">Indiana</a></li>
+                    <li><a href="It's All Right With Me.webp">It's All Right With Me</a></li>
+                    <!-- Songs starting with 'I' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>J</h2>
+                <ul>
+                    
+                    <!-- Songs starting with 'J' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>K</h2>
+                <ul>
+                    <li><a href="Killer Joe.webp">Killer Joe</a></li>
+                    <!-- Songs starting with 'K' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>L</h2>
+                <ul>
+                    <li><a href="Little Sunflower.webp">Little Sunflower</a></li>
+                    <li><a href="Lujon.webp">Lujon</a></li>
+                    <!-- Songs starting with 'L' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>M</h2>
+                <ul>
+                    <li><a href="Mambo no. 5 (A Little Bit Of...).webp">Mambo no. 5 (A Little Bit Of...)</a></li>
+                    <li><a href="Manha de Carnaval.webp">Manha de Carnaval</a></li>
+                    <li><a href="Manteca.webp">Manteca</a></li>
+                    <li><a href="Mercy Mercy Mercy.webp">Mercy Mercy Mercy</a></li>
+                    <li><a href="Mr. P.C.webp">Mr. P.C</a></li>
+                    <li><a href="My Little Suede Shoes.webp">My Little Suede Shoes</a></li>
+                    <!-- Songs starting with 'M' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>N</h2>
+                <ul>
+                    <li><a href="Nature Boy.webp">Nature Boy</a></li>
+                    <li><a href="Night Train.webp">Night Train</a></li>
+                    <li><a href="Nostalgia in Times Square.webp">Nostalgia in Times Square</a></li>
+                    <!-- Songs starting with 'N' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>O</h2>
+                <ul>
+                    <li><a href="Off Minor.webp">Off Minor</a></li>
+                    <!-- Songs starting with 'O' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>P</h2>
+                <ul>
+                    <li><a href="Perdido.webp">Perdido</a></li>
+                    <li><a href="Perfidia.webp">Perfidia</a></li>
+                    <li><a href="Poor Butterfly.webp">Poor Butterfly</a></li>
+                    <!-- Songs starting with 'P' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>Q</h2>
+                <ul>
+                    
+                    <!-- Songs starting with 'Q' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>R</h2>
+                <ul>
+                    <li><a href="Rapture.webp">Rapture</a></li>
+                    <!-- Songs starting with 'R' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>S</h2>
+                <ul>
+                    <li><a href="Sabor A Mi.webp">Sabor A Mi</a></li>
+                    <li><a href="Samba De Orfeu.webp">Samba De Orfeu</a></li>
+                    <li><a href="September In The Rain.webp">September In The Rain</a></li>
+                    <li><a href="So Many Stars.webp">So Many Stars</a></li>
+                    <li><a href="Some Other Blues.webp">Some Other Blues</a></li>
+                    <li><a href="Song For My Father.webp">Song For My Father</a></li>
+                    <li><a href="Spain.webp">Spain</a></li>
+                    <li><a href="Speak Low.webp">Speak Low</a></li>
+                    <li><a href="St Thomas.webp">St Thomas</a></li>
+                    <li><a href="Stompin' At The Savoy.webp">Stompin' At The Savoy</a></li>
+                    <li><a href="Sugar.webp">Sugar</a></li>
+                    <li><a href="Sway.webp">Sway</a></li>
+                    <!-- Songs starting with 'S' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>T</h2>
+                <ul>
+                    <li><a href="Tenor Madness.webp">Tenor Madness</a></li>
+                    <li><a href="Things Ain't What They Used To Be.webp">Things Ain't What They Used To Be</a></li>
+                    <li><a href="Tristeza.webp">Tristeza</a></li>
+                    <!-- Songs starting with 'T' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>U</h2>
+                <ul>
+                    
+                    <!-- Songs starting with 'U' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>V</h2>
+                <ul>
+                    <li><a href="Volare.webp">Volare</a></li>
+                    <!-- Songs starting with 'V' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>W</h2>
+                <ul>
+                    <li><a href="What a Difference a Day Made.webp">What a Difference a Day Made</a></li>
+                    <!-- Songs starting with 'W' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>X</h2>
+                <ul>
+                    
+                    <!-- Songs starting with 'X' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>Y</h2>
+                <ul>
+                    <li><a href="You Stepped Out of a Dream.webp">You Stepped Out of a Dream</a></li>
+                    <!-- Songs starting with 'Y' -->
+                </ul>
+            </div>
+            <div class="letter-column">
+                <h2>Z</h2>
+                <ul>
+                    
+                    <!-- Songs starting with 'Z' -->
+                </ul>
+            </div>
+            
+        </div>
+     </div>
+
+     
+
+
+    <!--  <textarea id="textAreaInput" placeholder="Enter text"></textarea>
+     <button id="saveButton">Save Text</button>
+     <button id="clearButton">Clear Text</button>
+     <div id="displayText"></div>
+     <div class="iframe-container">   --> 
+     <div>
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+  
+  
+        </div>
+
+
+</body>
+
+
+    
