@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes to Google Sheets</title>
+    <style>
+        /* Overlay styling */
+        #overlay, #flashCard {
+            position: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            color: white;
+        }
+        #overlay .buttons, #flashCard .buttons {
+            text-align: center;
+        }
+        #overlay button, #flashCard button, #flashCard input {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        #flashCard {
+            display: none;
+            flex-direction: column;
+        }
+        #flashCard input {
+            font-size: 16px;
+            padding: 5px;
+        }
+
+         #notes {
+            margin-top: 20px;
+        }
+        .note {
+            margin-bottom: 10px;
+        }
+    
+        
+        #instrumentGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .instrumentItem {
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        #mainContainer {
+            display: flex;
+        }
+        .groupColumn {
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
+        }
+        .groupRow {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .group {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        .group h3 {
+            margin-right: 10px;
+        }
+
+        .group button {
+            margin: 10px;
+            padding: 20px;
+            font-size: 16px;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+       .square {
+            background-color: #4CAF50;
+        }
+        .circle {
+            background-color: #2196F3;
+            border-radius: 50%;
+        }
+        .diamond {
+            background-color: #FF9800;
+            transform: rotate(45deg);
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .diamond span {
+            transform: rotate(-45deg);
+            text-align: center;
+        }
+       
+    
+
+    </style>
+</head>
+<body>
+    <div id="overlay">
+        <div class="buttons">
+            <button onclick="continueSession()">Continue With Previous Session</button>
+            <button onclick="startNewSession()">START NEW SESSION</button>
+        </div>
+    </div>
+<!--
+    <div id="flashCard">
+        <div id="flashCardContent">
+            <!-- Flash card content will be dynamically inserted here -->
+     <!--   </div>
+        <div class="buttons">
+            <button onclick="handleAnswer('yes')">YES</button>
+            <button onclick="handleAnswer('no')">NO</button>
+        </div>
+        <div id="substituteInput" style="display:none;">
+            <input type="text" id="subName" placeholder="Who is the sub?" onkeydown="if(event.key === 'Enter') saveSubstitute()">
+        </div>
+    </div>
+-->
+
+    
+    <input type="text" id="note" placeholder="Type your notes here..." onkeydown="if(event.key === 'Enter') saveNote()">
+    
+
+    <div class="group">
+        <h3>Rhythm</h3>
+        <button class="square" onclick="saveNoteFromButton('Drums Solo')">Drums</button>
+        <button class="square" onclick="saveNoteFromButton('Bass Solo')">Bass</button>
+        <button class="square" onclick="saveNoteFromButton('Guitar Solo')">Guitar</button>
+        <button class="square" onclick="saveNoteFromButton('Piano Solo')">Piano</button>
+    </div>
+
+    <div class="group">
+        <h3>Trumpets</h3>
+        <button class="circle" onclick="saveNoteFromButton('Trumpet 2 Solo')">Tpt2</button>
+        <button class="circle" onclick="saveNoteFromButton('Trumpet 1 Solo')">Tpt1</button>
+        <button class="circle" onclick="saveNoteFromButton('Trumpet 3 Solo')">Tpt3</button>
+        <button class="circle" onclick="saveNoteFromButton('Trumpet 4 Solo')">Tpt4</button>
+    </div>
+
+    <div class="group">
+        <h3>Trombones</h3>
+        <button class="diamond" onclick="saveNoteFromButton('Trombone 3 Solo')">Bone 3</button>
+        <button class="diamond" onclick="saveNoteFromButton('Trombone 1 Solo')">Bone 1</button>
+        <button class="diamond" onclick="saveNoteFromButton('Trombone 2 Solo')">Bone 2</button>
+        <button class="diamond" onclick="saveNoteFromButton('Bass Trombone Solo')">Bass Bone</button>
+    </div>
+
+    <div class="group">
+        <h3>Saxophones</h3>
+        <button class="circle" onclick="saveNoteFromButton('Tenor 1 Solo')">Tenor 1</button>
+        <button class="circle" onclick="saveNoteFromButton('Alto 2 Solo')">Alto 2</button>
+        <button class="circle" onclick="saveNoteFromButton('Alto 1 Solo')">Alto 1</button>
+        <button class="circle" onclick="saveNoteFromButton('Tenor 2 Solo')">Tenor 2</button>
+        <button class="circle" onclick="saveNoteFromButton('Bari Solo')">Bari</button>
+    </div>
+    
+
+    <button onclick="sendNotes()">Send Notes to Google Sheet</button>
+    <div id="notes"></div>
+    <button onclick="clearNotes()">Clear All Notes</button>
+
+    
+
+    <script>
+        // Function to format the current date and time
+        function getFormattedDateTime() {
+            const now = new Date();
+            return now.toLocaleString();
+        }
+
+        // Function to save the note from input field along with a timestamp
+        function saveNote() {
+            let note = document.getElementById('note').value;
+            if (note) {
+                const timestamp = getFormattedDateTime();
+                let notes = JSON.parse(localStorage.getItem('notes')) || [];
+                notes.push({text: note, time: timestamp});
+                localStorage.setItem('notes', JSON.stringify(notes));
+                document.getElementById('note').value = ''; // Clear the input
+                document.getElementById('note').focus(); // Keep focus on the input
+                displayNotes(); // Display notes
+            } else {
+                alert('Please enter a note!');
+            }
+        }
+
+        // Function to save a note from a button click along with a timestamp
+        function saveNoteFromButton(note) {
+            const timestamp = getFormattedDateTime();
+            let notes = JSON.parse(localStorage.getItem('notes')) || [];
+            notes.push({text: note, time: timestamp});
+            localStorage.setItem('notes', JSON.stringify(notes));
+            displayNotes(); // Display notes
+        }
+
+        // Function to display the notes
+        function displayNotes() {
+            let notes = JSON.parse(localStorage.getItem('notes')) || [];
+            let notesDiv = document.getElementById('notes');
+            notesDiv.innerHTML = ''; // Clear existing notes
+            for (let i = notes.length - 1; i >= 0; i--) {
+                let noteElement = document.createElement('div');
+                noteElement.className = 'note';
+                noteElement.innerHTML = `<strong>${notes[i].time}</strong>: ${notes[i].text}`;
+                notesDiv.appendChild(noteElement);
+            }
+        }
+
+        // Function to send the notes to Google Sheets
+        async function sendNotes() {
+            let notes = JSON.parse(localStorage.getItem('notes')) || [];
+            if (notes.length > 0) {
+                const response = await fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ notes: notes }),
+                });
+                if (response.ok) {
+                    localStorage.removeItem('notes');
+                    displayNotes(); // Update displayed notes
+                    alert('Notes sent to Google Sheets!');
+                } else {
+                    alert('Error sending notes.');
+                }
+            } else {
+                alert('No notes to send!');
+            }
+        }
+
+         // Functions to handle the overlay actions
+
+         function startNewSession() {
+            localStorage.clear();
+            localStorage.removeItem('notes');
+                displayNotes(); // Update displayed notes   
+     //       currentQuestionIndex = 0;
+     //       showFlashCard();
+            document.getElementById('overlay').style.display = 'none';
+        }
+        function continueSession() {
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+          // Flash card data
+          const questions = [
+            { name: "Gary", instrument: "Drums" },
+            { name: "Gordon", instrument: "Bass" },
+            { name: "Ron", instrument: "Guitar" },
+            { name: "Cengiz", instrument: "Piano" },
+            { name: "John", instrument: "Tenor 1" },
+            { name: "Geoff", instrument: "Alto 2" },
+            { name: "Sam", instrument: "Alto 1" },
+            { name: "Dennis", instrument: "Tenor 2" },
+            { name: "Larry", instrument: "Bari" },
+            { name: "Brad", instrument: "Trombone 3" },
+            { name: "Jack", instrument: "Trombone 1" },
+            { name: "Bob", instrument: "Trombone 2" },
+            { name: "Harry", instrument: "Bass Trombone" },
+            { name: "Anne", instrument: "Trumpet 2" },
+            { name: "John", instrument: "Trumpet 1" },
+            { name: "Curt", instrument: "Trumpet 3" },
+            { name: "Jeff", instrument: "Trumpet 4" },
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function showFlashCard() {
+            if (currentQuestionIndex < questions.length) {
+                const question = questions[currentQuestionIndex];
+                document.getElementById('flashCardContent').innerHTML = `${question.name} on ${question.instrument}?`;
+                document.getElementById('substituteInput').style.display = 'none';
+                document.getElementById('flashCard').style.display = 'flex';
+            } else {
+                document.getElementById('flashCard').style.display = 'none';
+            }
+        }
+
+        function handleAnswer(answer) {
+            if (answer === 'yes') {
+                const question = questions[currentQuestionIndex];
+                localStorage.setItem(question.instrument, question.name);
+                currentQuestionIndex++;
+                showFlashCard();
+            } else if (answer === 'no') {
+                document.getElementById('substituteInput').style.display = 'block';
+                document.getElementById('subName').focus();
+            }
+        }
+
+        function saveSubstitute() {
+            const subName = document.getElementById('subName').value;
+            if (subName) {
+                const question = questions[currentQuestionIndex];
+                localStorage.setItem(question.instrument, subName);
+                currentQuestionIndex++;
+                document.getElementById('subName').value = ''; // Clear the input
+                showFlashCard();
+            }
+        }
+
+
+         // Function to clear all notes
+         function clearNotes() {
+            if (confirm('Are you sure you want to clear all notes?')) {
+                localStorage.removeItem('notes');
+                displayNotes(); // Update displayed notes
+            }
+        }
+
+        // Display notes on page load
+        window.onload = displayNotes;
+    </script>
+</body>
+</html>
