@@ -5,18 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PDF Page Turner</title>
     <style>
-        #pdf-render { width: 100%; max-width: 600px; height: auto; }
-        #controls { margin-top: 10px; }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #pdf-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #pdf-render {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+        .page-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 18px;
+        }
+        #prev-page {
+            left: 0;
+        }
+        #next-page {
+            right: 0;
+        }
+        #page-info {
+            position: absolute;
+            bottom: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
-    <div>
+    <div id="pdf-container">
         <canvas id="pdf-render"></canvas>
-    </div>
-    <div id="controls">
-        <button id="prev-page">Previous Page</button>
-        <span id="page-info">Page <span id="page-num"></span> of <span id="page-count"></span></span>
-        <button id="next-page">Next Page</button>
+        <button id="prev-page" class="page-btn">‹</button>
+        <button id="next-page" class="page-btn">›</button>
+        <div id="page-info">Page <span id="page-num"></span> of <span id="page-count"></span></div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.0.279/pdf.min.js"></script>
