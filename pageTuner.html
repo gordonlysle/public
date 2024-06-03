@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Page Turner</title>
+    <style>
+        #pdf-render { width: 100%; max-width: 600px; height: auto; }
+        #controls { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div>
+        <canvas id="pdf-render"></canvas>
+    </div>
+    <div id="controls">
+        <button id="prev-page">Previous Page</button>
+        <span id="page-info">Page <span id="page-num"></span> of <span id="page-count"></span></span>
+        <button id="next-page">Next Page</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.0.279/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.0.279/pdf.worker.min.js"></script>
+    <script>
+        const url = 'Desafinado.pdf'; // Relative path to your PDF file
+
+        let pdfDoc = null,
+            pageNum = 1,
+            pageIsRendering = false,
+            pageNumIsPending = null;
+
+        const scale = 1.5,
+              canvas = document.getElementById('pdf-render'),
+              ctx = canvas.getContext('2d');
+
+        const renderPage = num => {
+            pageIsRendering = true;
+
+            pdfDoc.getPage(num).then(page => {
+                const viewport = page.getViewport({ scale });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderContext = {
+                    canvasContext: ctx,
+                    viewport
+                };
+
+                page.render(renderContext).promise.then(() => {
+                    pageIsRendering = false;
+
+                    if (pageNumIsPending !== null) {
+                        renderPage(pageNumIsPending);
+                        pageNumIsPending = null;
+                    }
+                });
+
+                document.getElementById('page-num').textContent = num;
+            });
+        };
+
+        const queueRenderPage = num => {
+            if (pageIsRendering) {
+                pageNumIsPending = num;
+            } else {
+                renderPage(num);
+            }
+        };
+
+        const showPrevPage = () => {
+            if (pageNum <= 1) {
+                return;
+            }
+            pageNum--;
+            queueRenderPage(pageNum);
+        };
+
+        const showNextPage = () => {
+            if (pageNum >= pdfDoc.numPages) {
+                return;
+            }
+            pageNum++;
+            queueRenderPage(pageNum);
+        };
+
+        pdfjsLib.getDocument(url).promise.then(pdfDoc_ => {
+            pdfDoc = pdfDoc_;
+            document.getElementById('page-count').textContent = pdfDoc.numPages;
+            renderPage(pageNum);
+        });
+
+        document.getElementById('prev-page').addEventListener('click', showPrevPage);
+        document.getElementById('next-page').addEventListener('click', showNextPage);
+
+        // Touch event handlers
+        let startX = 0, endX = 0;
+
+        canvas.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            endX = e.touches[0].clientX;
+        });
+
+        canvas.addEventListener('touchend', (e) => {
+            const deltaX = endX - startX;
+            if (Math.abs(deltaX) > 50) { // Detect swipe with a minimum threshold
+                if (deltaX > 0) {
+                    showPrevPage(); // Swipe right, show previous page
+                } else {
+                    showNextPage(); // Swipe left, show next page
+                }
+            }
+        });
+    </script>
+</body>
+</html>
