@@ -1,0 +1,281 @@
+<html lang="en">
+
+<head>
+
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="rchartzstyles.css">
+
+    <title>90's ROCK SHOW -- RCHARTZ HOME</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.min.js"></script>
+   
+
+</head>
+  
+  <style>
+
+body {
+  font-family: Arial, sans-serif;
+  color: rgb(0, 0, 0)
+}
+
+.container {
+    position: relative; /* Set position to relative to allow absolute positioning of pseudo-element */
+    max-width: 100%;
+    overflow: hidden; /* Hide horizontal overflow */
+    background-image: url('scarletBG_1400.JPG'); /* Set the background image */
+    background-size: cover; /* Cover the entire container with the background image */
+    background-position: center; /* Center the background image */
+    padding: 20px; /* Add padding for spacing */
+}
+
+.container::before {
+    content: ''; /* Required for pseudo-elements */
+    position: absolute; /* Set position to absolute */
+    top: 0; /* Position at the top of the container */
+    left: 0; /* Position at the left of the container */
+    width: 100%; /* Cover the entire container horizontally */
+    height: 100%; /* Cover the entire container vertically */
+    background-color: rgba(255, 255, 255, 0.2); /* Set a translucent white overlay */
+}
+
+.letter-container {
+    position: relative; /* Set position to relative to allow z-index to work */
+    z-index: 1; /* Ensure the letter container appears above the overlay */
+    display: flex;
+    flex-wrap: wrap; /* Allow flex items to wrap */
+    justify-content: space-around; /* Distribute items evenly along the main axis */
+}
+
+.letter-column {
+    flex-grow: 1; /* Allow the letter containers to grow and shrink based on available space */
+    margin-bottom: 20px;
+    max-width: calc((100% - 40px) / 2); /* Limit the maximum width of each letter container */
+}
+
+.letter-column h2 {
+    margin-top: 0;
+    border-bottom: 2px solid #333; /* Add a border at the bottom of each letter */
+    padding-bottom: 5px; /* Add some padding to create space between the border and the text */
+    font-family: 'Roboto', sans-serif; /* Set the font family to Roboto */
+    color: rgba(0, 0, 0, 0.9); /* Set the font color */
+    
+}
+
+.letter-column ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.letter-column ul li {
+    margin-bottom: 5px;
+}
+
+.letter-column ul li a {
+    text-decoration: none;
+    font-family: 'Tahoma', sans-serif; /* Set the font family to Roboto */
+    font-weight: bold; /* Add bold to the font */
+    color: #000000; /* Set the font color */
+    display: inline-block; /* Make the <a> element a block-level element */
+    padding: 1px 7px 1px 7px; /* Add padding around the text */
+    background-color: rgba(242, 242, 242, 0.3); /* Set the background color with 70% opacity */
+    border-radius: 5px; /* Add rounded corners */
+}
+
+.letter-column ul li a:hover {
+    text-decoration: underline;
+    color: #555; /* Set the font color on hover */
+}
+
+
+
+
+/* This is the CSS for the overlay)*/
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9); /* Fully opaque white */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure overlay is on top of content */
+}
+
+.prompt {
+    text-align: center;
+}
+
+.content {
+    display: none; /* Hide content initially */
+}
+
+.content.show {
+    display: block; /* Show content when password is correct */
+}
+
+/* CSS for button styling */
+.big-button {
+      display: inline-block;
+      padding: 20px 40px;
+      font-size: 24px;
+      background-color: #007bff; /* Adjust color as needed */
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .big-button:hover {
+      background-color: #0056b3; /* Adjust hover color as needed */
+    }
+
+
+textarea {
+  width: 300px;
+  height: 150px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+#displayText {
+  margin-top: 10px;
+}
+   </style>
+
+
+
+
+
+<body>
+    <div class="overlay" id="overlay">
+        <div class="prompt">
+            <input type="text" id="passwordInput">
+            <button onclick="checkPassword()">Submit</button>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="content">
+        <!-- Your content here -->
+
+
+
+    <div style="background: url(scarletBG_1400.JPG)" class="page-holder bg-cover">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:rgb(0, 0, 0, .5)">
+            <div class="container">
+                <a class="navbar-brand" href="index.html" style="color: rgba(255, 255, 255, 0.4); font-weight: bold; position: relative; z-index: 3;" id="bpllc">90s ROCK SHOW -- RCHARTZ HOME</a>
+
+            
+                </div>
+            </nav>
+               
+    </div>
+   
+
+<!--  ULTIMATE  -->
+
+<div class="container"> 
+
+    <div class="letter-container">
+
+        <div id="0" class="letter-column"> <h2>00</h2> <ul>
+            <li><a href="player.html?pdf=/90sRockShow/3AM 90s - Violin I.pdf">3 AM 90's - Violin 1</a></li>
+            <li><a href="player.html?pdf=/90sRockShow/1979 - Violin I.pdf">1979 - Violin 1</a></li>
+
+
+    </ul><div id="A" class="letter-column"> <h2>A</h2> <ul>
+        <li><a href="player.html?pdf=/90sRockShow/3AM 90s - Violin I.pdf">Alive</a></li>
+        
+        
+        
+        </ul> </div> <div id="X" class="letter-column"> <h2>X Y Z</h2> <ul>
+        <li><a href="charts/Yardbird Suite.webp">Yardbird Suite</a></li>
+        <li><a href="charts/Yes Sir That's My Baby.webp">Yes Sir That's My Baby</a></li>
+        <li><a href="charts/Yesterday.webp">Yesterday</a></li>
+        <li><a href="charts/Yesterdays.webp">Yesterdays</a></li>
+        <li><a href="charts/You And The Night And The Music.webp">You And The Night And The Music</a></li>
+        <li><a href="charts/You Are The Sunshine Of My Life.webp">You Are The Sunshine Of My Life</a></li>
+        <li><a href="charts/You Do Something To Me.webp">You Do Something To Me</a></li>
+        <li><a href="charts/You Don't Know Me.webp">You Don't Know Me</a></li>
+        <li><a href="charts/You Don't Know What Love Is.webp">You Don't Know What Love Is</a></li>
+        <li><a href="charts/You Go To My Head.webp">You Go To My Head</a></li>
+        <li><a href="charts/You Made Me Love You.webp">You Made Me Love You</a></li>
+        <li><a href="charts/You Make Me Feel So Young.webp">You Make Me Feel So Young</a></li>
+        <li><a href="charts/You Stepped Out Of A Dream.webp">You Stepped Out Of A Dream</a></li>
+        <li><a href="charts/You'd Be So Nice To Come Home To.webp">You'd Be So Nice To Come Home To</a></li>
+        <li><a href="charts/You're Getting To Be A Habit With Me.webp">You're Getting To Be A Habit With Me</a></li>
+        <li><a href="charts/You're Nobody Till Somebody Loves You.webp">You're Nobody Till Somebody Loves You</a></li>
+        <li><a href="charts/You've Changed.webp">You've Changed</a></li>
+        <li><a href="charts/Zingaro.webp">Zingaro</a></li>
+
+	</ul>
+</div>
+
+
+
+    
+    
+
+
+    <!--  <textarea id="textAreaInput" placeholder="Enter text"></textarea>
+     <button id="saveButton">Save Text</button>
+     <button id="clearButton">Clear Text</button>
+     <div id="displayText"></div>
+     <div class="iframe-container">   --> 
+     <div>
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+  
+  
+        </div>
+
+    </div>
+
+    <script>
+   window.onload = function() {
+    // Check if the user has already entered the password
+    var hasEnteredPassword = localStorage.getItem("hasEnteredPassword");
+
+    if (hasEnteredPassword === "true") {
+        // If the password has already been entered, hide the overlay and show the content
+        document.getElementById("overlay").style.display = "none";
+        document.querySelector(".content").classList.add("show");
+    }
+};
+
+function checkPassword() {
+    var passwordInput = document.getElementById("passwordInput").value;
+    if (passwordInput === "36251") {
+        // Store a flag in the local storage indicating that the password has been entered
+        localStorage.setItem("hasEnteredPassword", "true");
+        
+        document.getElementById("overlay").style.display = "none"; // Hide overlay
+        document.querySelector(".content").classList.add("show"); // Show content
+    } else {
+        alert("Incorrect password. Please try again.");
+    }
+}
+</script>
+
+
+</body>
+
+
