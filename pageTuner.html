@@ -35,16 +35,18 @@
             background-color: rgba(0, 0, 0, 0.5);
             color: white;
             border: none;
-            padding: 10px;
+            padding: 20px;
             cursor: pointer;
             z-index: 10;
-            font-size: 18px;
+            font-size: 24px;
+            height: 90%; /* Make the button almost as tall as the PDF */
+            width: 50px; /* Increase the width for better visibility */
         }
         #prev-page {
-            left: 10px;
+            left: 0;
         }
         #next-page {
-            right: 10px;
+            right: 0;
         }
         #page-info {
             position: absolute;
@@ -67,7 +69,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.0.279/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.0.279/pdf.worker.min.js"></script>
     <script>
-        const url = 'document.pdf'; // Relative path to your PDF file
+        const url = 'Desafinado.pdf'; // Relative path to your PDF file
 
         let pdfDoc = null,
             pageNum = 1,
@@ -164,4 +166,3 @@
     </script>
 </body>
 </html>
-        
