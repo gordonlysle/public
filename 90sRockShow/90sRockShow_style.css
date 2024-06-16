@@ -1,0 +1,189 @@
+
+body {
+  font-family: Arial, sans-serif;
+  color: rgb(0, 0, 0)
+}
+#mainbk {
+    background-color: black;
+}
+
+.container {
+    position: relative; /* Set position to relative to allow absolute positioning of pseudo-element */
+    max-width: 100%;
+    overflow: hidden; /* Hide horizontal overflow */
+   /* background-image: url('90s_lights_sm.png'); * Set the background image */
+    background-size: cover; /* Cover the entire container with the background image */
+    background-position: center; /* Center the background image */
+    padding: 20px; /* Add padding for spacing */
+}
+
+.container::before {
+    content: ''; /* Required for pseudo-elements */
+    position: absolute; /* Set position to absolute */
+    top: 0; /* Position at the top of the container */
+    left: 0; /* Position at the left of the container */
+    width: 100%; /* Cover the entire container horizontally */
+    height: 100%; /* Cover the entire container vertically */
+    background-color: rgba(255, 255, 255, 0.2); /* Set a translucent white overlay */
+}
+
+.letter-container {
+    position: relative; /* Set position to relative to allow z-index to work */
+    z-index: 1; /* Ensure the letter container appears above the overlay */
+    display: flex;
+    flex-wrap: wrap; /* Allow flex items to wrap */
+    justify-content: space-around; /* Distribute items evenly along the main axis */
+}
+
+.letter-column {
+    flex-grow: 1; /* Allow the letter containers to grow and shrink based on available space */
+    margin-bottom: 20px;
+    max-width: calc((100% - 40px) / 2); /* Limit the maximum width of each letter container */
+}
+
+.letter-column h2 {
+    margin-top: 0;
+    /* border-bottom: 2px solid #ffffff; /* Add a border at the bottom of each letter */
+    padding-bottom: 5px; /* Add some padding to create space between the border and the text */
+    font-family: 'Roboto', sans-serif; /* Set the font family to Roboto */
+    color: rgba(255, 255, 255, 0.9); /* Set the font color */
+    
+}
+
+
+.letter-column ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.letter-column ul li {
+    margin-bottom: 5px;
+}
+
+.letter-column ul li a {
+    text-decoration: none;
+    font-family: 'Tahoma', sans-serif; /* Set the font family to Roboto */
+    font-weight: bold; /* Add bold to the font */
+    color: #000000; /* Set the font color */
+    display: inline-block; /* Make the <a> element a block-level element */
+    padding: 1px 7px 1px 7px; /* Add padding around the text */
+    background-color: rgba(255, 255, 255, 0.7); /* Set the background color with 70% opacity */
+    border-radius: 5px; /* Add rounded corners */
+}
+
+.letter-column ul li a:hover {
+    text-decoration: underline;
+    color: #555; /* Set the font color on hover */
+}
+
+/* Toggled styles */
+.dark-mode .letter-column ul li a {
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.9); /* Set the background color with 50% opacity */
+}
+.dark-mode #mainbk {
+    background-color:white;
+}
+
+.dark-mode .container {
+    background-color: white;
+}
+
+.dark-mode .letter-column h2  {
+    border-bottom: 2px solid #f0f0f0; /* Off-white */
+    color: #000;
+    /* background-color:white; */
+}
+
+
+
+/* Ensure the button is always clickable */
+#toggleButton {
+    position: relative;
+    z-index: 1000; /* Ensure it is above other elements */
+    padding: 10px 20px;
+    background-color: #4f4e4e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#toggleButton:hover {
+    background-color: #8f3737;
+}
+
+
+.big-button {
+    display: inline-block;
+    padding: 60px 60px; /* Increase padding for larger size */
+    font-size: 30px; /* Increase font size */
+    background-color: #000000; /* Adjust color as needed */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    text-align: right;
+    margin: 10px;
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a shadow to the text */
+    -webkit-text-stroke: 2px black; /* Add an outline to the text */
+}
+
+/* Grid container for buttons */
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive columns */
+    gap: 20px; /* Space between buttons */
+    justify-items: center; /* Center buttons within their grid cells */
+}
+
+#celloButton {
+    background-image: url('button_Cello.jpeg'); /* Replace with your image URL */
+    background-size: contain; /* Ensure the entire image is visible */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+}
+#violaButton {
+    background-image: url('button_Viola.jpeg'); /* Replace with your image URL */
+    background-size: contain; /* Ensure the entire image is visible */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+}
+#violin1Button {
+    background-image: url('button_Violin\ I.jpeg'); /* Replace with your image URL */
+    background-size: contain; /* Ensure the entire image is visible */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+}
+#violin2Button {
+    background-image: url('button_Violin\ II.jpeg'); /* Replace with your image URL */
+    background-size: contain; /* Ensure the entire image is visible */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+}
+
+
+
+
+/* This is the CSS for the overlay)*/
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9); /* Fully opaque white */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure overlay is on top of content */
+}
+
+.prompt {
+    text-align: center;
+}
+
+.content {
+    display: none; /* Hide content initially */
+}
+
+.content.show {
+    display: block; /* Show content when password is correct */
+}
+
