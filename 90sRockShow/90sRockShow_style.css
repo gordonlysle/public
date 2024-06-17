@@ -7,6 +7,13 @@ body {
     background-color: black;
 }
 
+.navbar-brand {
+    color: rgba(255, 255, 255);
+    font-weight: bold;
+    position: relative;
+    z-index: 3;
+}
+
 .container {
     position: relative; /* Set position to relative to allow absolute positioning of pseudo-element */
     max-width: 100%;
