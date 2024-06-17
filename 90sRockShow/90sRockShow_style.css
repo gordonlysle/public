@@ -96,6 +96,10 @@ body {
     background-color: white;
 }
 
+.dark-mode .navbar-brand {
+    color: black;
+}
+
 .dark-mode .letter-column h2  {
     border-bottom: 2px solid #f0f0f0; /* Off-white */
     color: #000;
