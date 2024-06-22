@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const pdfUrl = urlParams.get('pdf');
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderPage = num => {
         pageIsRendering = true;
+        console.log(`Starting to render page ${num}`);
 
         pdfDoc.getPage(num).then(page => {
             const viewport = page.getViewport({ scale: 1 });
@@ -34,20 +36,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
             page.render(renderContext).promise.then(() => {
                 pageIsRendering = false;
+                console.log(`Rendered page ${num}`);
 
                 if (pageNumIsPending !== null) {
                     renderPage(pageNumIsPending);
                     pageNumIsPending = null;
                 }
+            }).catch(err => {
+                console.error(`Error rendering page ${num}:`, err);
             });
 
             document.getElementById('page-num').textContent = num;
+        }).catch(err => {
+            console.error(`Error getting page ${num}:`, err);
         });
     };
 
     const queueRenderPage = num => {
         if (pageIsRendering) {
             pageNumIsPending = num;
+            console.log(`Queueing page ${num} for rendering`);
         } else {
             renderPage(num);
         }
@@ -59,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         pageNum--;
         queueRenderPage(pageNum);
+        console.log(`Navigating to previous page: ${pageNum}`);
     };
 
     const showNextPage = () => {
@@ -67,12 +76,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         pageNum++;
         queueRenderPage(pageNum);
+        console.log(`Navigating to next page: ${pageNum}`);
     };
 
     pdfjsLib.getDocument(pdfUrl).promise.then(pdfDoc_ => {
         pdfDoc = pdfDoc_;
         document.getElementById('page-count').textContent = pdfDoc.numPages;
+        console.log(`Loaded PDF with ${pdfDoc.numPages} pages`);
         renderPage(pageNum);
+    }).catch(err => {
+        console.error('Error loading PDF:', err);
     });
 
     document.getElementById('prev-page').addEventListener('click', showPrevPage);
@@ -97,6 +110,16 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 showNextPage(); // Swipe left, show next page
             }
+        }
+    });
+
+    // Keyboard event handlers
+    document.addEventListener('keydown', (e) => {
+        console.log(`Key pressed: ${e.key}`);
+        if (e.key === 'ArrowUp') {
+            showPrevPage();
+        } else if (e.key === 'ArrowDown') {
+            showNextPage();
         }
     });
 });
