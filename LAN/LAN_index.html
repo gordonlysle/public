@@ -1,0 +1,116 @@
+<html lang="en">
+
+<head>
+
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="LAN_style.css">
+
+    <title>RCHARTZ HOME -- LYNDSAY & THE ALL-NIGHTERS</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.min.js"></script>
+   
+
+</head>
+  
+ 
+
+
+
+
+<body>
+    <div class="overlay" id="overlay">
+        <div class="prompt">
+            <input type="text" id="passwordInput">
+            <button onclick="checkPassword()">Submit</button>
+        </div>
+    </div>
+
+
+
+
+    <div class="content">
+        <!-- Your content here -->
+
+
+
+    <div style="background: url(LAN_bk.png)" class="page-holder bg-cover">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:rgb(0, 0, 0, .5)">
+            <div class="container">
+            <a class="navbar-brand" href="../index.html" style="color:white; font-weight: bold; position: relative; z-index:3;">RCHARTZ HOME -- LYNDSAY & THE ALL-NIGHTERS --</a>
+            <button id="toggleButton">Toggle Colors</button>
+            </div>
+        </nav>             
+    </div>
+
+    <div class="container" id="mainbk"> 
+	      <div id="dynamic-content"></div>
+
+        </div>
+
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('TOC_LAN.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('dynamic-content').innerHTML = data;
+                });
+        });
+        document.getElementById('toggleButton').addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+        });
+    
+    </script>
+
+
+    <!--  <textarea id="textAreaInput" placeholder="Enter text"></textarea>
+     <button id="saveButton">Save Text</button>
+     <button id="clearButton">Clear Text</button>
+     <div id="displayText"></div>
+     <div class="iframe-container">   --> 
+     <div>
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+  
+  
+        </div>
+
+    </div>
+
+    <script>
+   window.onload = function() {
+    // Check if the user has already entered the password
+    var hasEnteredPassword = localStorage.getItem("hasEnteredPassword");
+
+    if (hasEnteredPassword === "true") {
+        // If the password has already been entered, hide the overlay and show the content
+        document.getElementById("overlay").style.display = "none";
+        document.querySelector(".content").classList.add("show");
+    }
+};
+
+function checkPassword() {
+    var passwordInput = document.getElementById("passwordInput").value;
+    if (passwordInput === "12114") {
+        // Store a flag in the local storage indicating that the password has been entered
+        localStorage.setItem("hasEnteredPassword", "true");
+        
+        document.getElementById("overlay").style.display = "none"; // Hide overlay
+        document.querySelector(".content").classList.add("show"); // Show content
+    } else {
+        alert("Incorrect password. Please try again.");
+    }
+}
+</script>
+
+
+</body>
+
+
