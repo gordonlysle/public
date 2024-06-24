@@ -172,7 +172,7 @@ body {
     position: relative;
     width: 100vw; /* Full width of the viewport */
     height: 100vh; /* Full height of the viewport */
-    background-image: url('90s_lights_sm.png'); /* Replace with your image URL */
+    background-image: url('LAN_bk.png'); /* Replace with your image URL */
     background-size: cover; /* Ensures the image covers the element */
     background-position: center; /* Centers the image */
     background-repeat: no-repeat; /* Prevents the image from repeating */
