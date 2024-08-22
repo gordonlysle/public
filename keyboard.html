@@ -92,6 +92,32 @@ body {
     background-color: #666;
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+    .piano-border {
+        width: 90%;
+        padding: 5px;
+    }
+
+    .key {
+        width: 30px;
+        height: 120px;
+        font-size: 10px;
+    }
+
+    .black {
+        width: 20px;
+        height: 80px;
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+
+    .key span {
+        font-size: 8px;
+    }
+}
+
+
 
 
 
@@ -166,6 +192,14 @@ document.querySelectorAll('.key').forEach(key => {
     key.addEventListener('mousedown', () => playTone(key.dataset.note, key));
     key.addEventListener('mouseup', () => stopTone(key.dataset.note, key));
     key.addEventListener('mouseleave', () => stopTone(key.dataset.note, key));
+
+    // Touch events for mobile devices
+    key.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Prevent default touch behavior (e.g., scrolling)
+        playTone(key.dataset.note, key);
+    });
+    key.addEventListener('touchend', () => stopTone(key.dataset.note, key));
+    key.addEventListener('touchcancel', () => stopTone(key.dataset.note, key));
 });
 
 document.addEventListener('keydown', (e) => {
@@ -182,7 +216,7 @@ document.addEventListener('keyup', (e) => {
     }
 });
 
-// Draggable Piano
+// Draggable Piano (Touch & Mouse)
 const pianoBorder = document.getElementById('piano-border');
 let isDragging = false;
 let offsetX, offsetY;
@@ -205,6 +239,29 @@ document.addEventListener('mouseup', () => {
     isDragging = false;
     pianoBorder.style.cursor = 'grab';
 });
+
+// Touch dragging support
+pianoBorder.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    const touch = e.touches[0];
+    offsetX = touch.clientX - pianoBorder.getBoundingClientRect().left;
+    offsetY = touch.clientY - pianoBorder.getBoundingClientRect().top;
+    pianoBorder.style.cursor = 'grabbing';
+});
+
+document.addEventListener('touchmove', (e) => {
+    if (isDragging) {
+        const touch = e.touches[0];
+        pianoBorder.style.left = `${touch.clientX - offsetX}px`;
+        pianoBorder.style.top = `${touch.clientY - offsetY}px`;
+    }
+});
+
+document.addEventListener('touchend', () => {
+    isDragging = false;
+    pianoBorder.style.cursor = 'grab';
+});
+
 
 </script>
 
